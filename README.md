@@ -1,17 +1,18 @@
-# 🏗️ SQL, Python & PySpark Data Warehouse Project
+# 🏗️ End-to-End Data Engineering & Lakehouse Project
 
-Welcome to my **SQL, Python & PySpark Data Warehouse Project**! 🚀
+Welcome to my **Data Engineering & Lakehouse Project**! 🚀
 
-This project demonstrates the development and evolution of an end-to-end Data Engineering pipeline using **SQL Server, Python, Pandas, PySpark, and Parquet**.
+This project demonstrates the development and evolution of an end-to-end Data Engineering solution using **SQL Server, Python, Pandas, PySpark, Apache Parquet, Databricks, Delta Lake, and Databricks Jobs**.
 
 The project follows the **Medallion Architecture**, transforming data through **Bronze, Silver, and Gold layers**.
 
-Two implementations of the currency pipeline are intentionally kept in the repository:
+The repository intentionally keeps multiple implementations of the same Data Engineering problem to demonstrate the learning journey and evolution of the architecture:
 
-- **Version 1:** Pandas + SQL Server
-- **Version 2:** PySpark + Parquet
+- **Version 1:** Python + Pandas + SQL Server
+- **Version 2:** PySpark + Apache Parquet
+- **Version 3:** Databricks + PySpark + Delta Lake + Job Orchestration
 
-This shows the progression from a traditional Python/SQL pipeline toward a more scalable Spark-based architecture.
+This shows the progression from a traditional Python/SQL Data Warehouse pipeline toward a modern **Lakehouse architecture**.
 
 ---
 
@@ -25,9 +26,10 @@ The project integrates:
 - ERP data from CSV files
 - Historical currency exchange rates from a REST API
 
-The project covers:
+The project currently demonstrates:
 
 - REST API ingestion
+- CSV ingestion
 - Raw JSON storage
 - Data quality checks
 - Incremental loading
@@ -35,19 +37,27 @@ The project covers:
 - SQL Server
 - Pandas
 - PySpark
-- Parquet
+- Apache Spark
+- Apache Parquet
 - Partitioning
+- Databricks
+- Delta Lake
+- Delta Tables
+- Databricks Jobs
+- Pipeline orchestration
 - Medallion Architecture
 - Bronze / Silver / Gold processing
 - Data modeling
+- Star Schema
 - Analytics-ready datasets
 - Logging and error handling
+- Git / GitHub integration
 
 ---
 
 # 🎯 Project Goal
 
-The goal is to build an end-to-end Data Engineering pipeline and gradually evolve it toward technologies used for larger-scale data processing.
+The goal is to build an end-to-end Data Engineering project and continuously evolve it toward technologies and architectural patterns used in modern data platforms.
 
 The project started with:
 
@@ -55,38 +65,90 @@ The project started with:
 Python + Pandas + SQL Server
 ```
 
-and was later extended with:
+It was then extended with:
 
 ```text
 PySpark + Parquet + Partitioning
 ```
 
-This allows both approaches to be compared while keeping the learning journey visible in the repository.
+The latest implementation runs on:
+
+```text
+Databricks
+    +
+PySpark
+    +
+Delta Lake
+    +
+Medallion Architecture
+    +
+Databricks Jobs
+```
+
+The earlier implementations remain in the repository so that the complete technical progression is visible.
 
 ---
 
 # 🛠️ Technologies Used
 
-- **Python**
-- **SQL**
-- **SQL Server**
-- **T-SQL**
-- **Pandas**
-- **PySpark**
-- **Apache Spark**
-- **Apache Parquet**
-- **REST API**
-- **Requests**
-- **JSON**
-- **CSV**
-- **SQLAlchemy**
-- **PyODBC**
-- **Logging**
-- **Medallion Architecture**
-- **Star Schema**
-- **Git**
-- **GitHub**
-- **Visual Studio Code**
+## Languages
+
+- Python
+- SQL
+- T-SQL
+
+## Data Processing
+
+- Pandas
+- PySpark
+- Apache Spark
+
+## Databases & Storage
+
+- Microsoft SQL Server
+- Apache Parquet
+- Delta Lake
+- Delta Tables
+
+## Platform
+
+- Databricks
+- Databricks Notebooks
+- Databricks Jobs & Pipelines
+- Serverless Compute
+
+## Data Sources
+
+- REST APIs
+- JSON
+- CSV
+
+## Python Libraries
+
+- Requests
+- SQLAlchemy
+- PyODBC
+
+## Data Engineering Concepts
+
+- ETL / ELT
+- Medallion Architecture
+- Data Lakehouse
+- Bronze / Silver / Gold
+- Incremental Processing
+- Watermark Logic
+- Data Quality
+- Partitioning
+- Data Modeling
+- Star Schema
+- Pipeline Orchestration
+
+## Development
+
+- Git
+- GitHub
+- Databricks Git Folders
+- Visual Studio Code
 
 ---
 
@@ -95,30 +157,30 @@ This allows both approaches to be compared while keeping the learning journey vi
 The project follows the **Medallion Architecture**:
 
 ```text
-             Source Systems
-                   │
-        ┌──────────┼──────────┐
-        │          │          │
-        ▼          ▼          ▼
-      CRM         ERP      REST API
-      CSV         CSV     Currency Data
-        │          │          │
-        └──────────┼──────────┘
-                   │
-                   ▼
-              🥉 BRONZE
-                   │
-                   ▼
-              🥈 SILVER
-                   │
-                   ▼
-               🥇 GOLD
-                   │
-                   ▼
-          Analytics / Reporting
+                 Source Systems
+                       │
+            ┌──────────┼──────────┐
+            │          │          │
+            ▼          ▼          ▼
+           CRM        ERP      REST API
+           CSV        CSV     Currency Data
+            │          │          │
+            └──────────┼──────────┘
+                       │
+                       ▼
+                  🥉 BRONZE
+                       │
+                       ▼
+                  🥈 SILVER
+                       │
+                       ▼
+                   🥇 GOLD
+                       │
+                       ▼
+              Analytics / Reporting
 ```
 
-Each layer has a different responsibility:
+Each layer has a different responsibility.
 
 ### 🥉 Bronze
 
@@ -154,7 +216,9 @@ CSV files containing:
 
 ## Currency REST API
 
-Historical EUR exchange rates from the Frankfurter API for:
+Historical EUR exchange rates are retrieved from the **Frankfurter REST API**.
+
+Currencies:
 
 - USD
 - GBP
@@ -168,9 +232,19 @@ The currency data covers the sales period:
 
 ---
 
-# 🐍 Version 1 — Pandas + SQL Server Pipeline
+# 🐍 Version 1 — Pandas + SQL Server
 
-The first implementation uses **Python, Pandas, SQLAlchemy, and SQL Server**.
+The first implementation uses:
+
+```text
+Python
+   +
+Pandas
+   +
+SQLAlchemy
+   +
+SQL Server
+```
 
 ## Pipeline Flow
 
@@ -233,15 +307,15 @@ The original pipeline demonstrates:
 
 ---
 
-# ⚡ Version 2 — PySpark + Parquet Pipeline
+# ⚡ Version 2 — PySpark + Parquet
 
 The second implementation rebuilds the currency pipeline using **PySpark**.
 
-Instead of processing the data primarily with Pandas and storing each layer in SQL Server, this version uses:
+Instead of processing the data primarily with Pandas and storing each layer in SQL Server, this implementation uses:
 
 - Spark DataFrames
 - Spark transformations
-- Parquet storage
+- Apache Parquet
 - Partitioning
 - Spark-based watermark logic
 - Incremental processing
@@ -308,7 +382,7 @@ The pipeline performs:
 - Parquet reads and writes
 - Partitioning
 
-Example transformation:
+Example:
 
 ```python
 df = df.withColumn(
@@ -322,8 +396,6 @@ df = df.withColumn(
 # 🔍 Data Quality
 
 Data quality validation is performed before data continues through the pipeline.
-
-The PySpark pipeline:
 
 ```text
 Incoming Data
@@ -350,35 +422,17 @@ An exchange rate is considered invalid when:
 rate <= 0
 ```
 
-If invalid rates are detected, the pipeline stops before loading the affected data.
+If invalid rates are detected, the affected data does not continue through the pipeline.
 
 ---
 
 # 🔄 Watermark & Incremental Processing
 
-The pipeline uses a **watermark** to avoid processing the same records repeatedly.
+The currency pipeline uses a **watermark** to avoid repeatedly loading the same API records.
 
 The watermark represents:
 
 > The latest date that has already been processed.
-
-In the PySpark implementation, the Bronze Parquet dataset is read and Spark calculates the maximum date:
-
-```python
-result = bronze_df.agg(
-    spark_max("date").alias("watermark")
-).collect()
-
-watermark = result[0]["watermark"]
-```
-
-New API data is then filtered:
-
-```python
-new_data = df.filter(
-    col("date") > watermark
-)
-```
 
 Conceptually:
 
@@ -386,7 +440,7 @@ Conceptually:
 API Data
    │
    ▼
-Read Bronze
+Bronze
    │
    ▼
 MAX(date)
@@ -407,13 +461,13 @@ If Bronze does not exist yet:
 watermark = None
 ```
 
-This indicates the first pipeline run, so all available records are processed.
+This represents the first pipeline run, so all available API records can be processed.
 
 ---
 
 # 🥉 Bronze Layer — PySpark
 
-Bronze contains the incrementally ingested currency data.
+The standalone PySpark implementation stores incrementally ingested currency data in Parquet.
 
 Only records newer than the watermark are appended.
 
@@ -424,13 +478,7 @@ new_data.write \
     .parquet(BRONZE_PATH)
 ```
 
-The data is partitioned by:
-
-```text
-quote
-```
-
-Example:
+The data is partitioned by currency:
 
 ```text
 bronze/currency_rates/
@@ -440,13 +488,13 @@ bronze/currency_rates/
 └── quote=CHF/
 ```
 
-This organizes the dataset by currency and allows Spark to avoid unnecessary partitions when queries filter on the partition column.
+Partitioning organizes the dataset by currency and can reduce unnecessary data scanning when Spark filters on the partition column.
 
 ---
 
 # 🥈 Silver Layer — PySpark
 
-After new records are added to Bronze, the pipeline reads the complete Bronze dataset.
+After new records are added to Bronze, the standalone PySpark pipeline reads the complete Bronze dataset.
 
 ```text
 Bronze
@@ -473,7 +521,7 @@ The transformation includes:
 - Clean data types
 - Valid currency records
 
-Silver is stored as partitioned Parquet:
+Silver is also stored as partitioned Parquet.
 
 ```text
 silver/currency_rates/
@@ -482,8 +530,6 @@ silver/currency_rates/
 ├── quote=GBP/
 └── quote=CHF/
 ```
-
-The Silver dataset is rebuilt from the complete Bronze dataset to preserve historical data.
 
 ---
 
@@ -513,33 +559,23 @@ GBP   | 0.84         | 0.78     | 0.91
 CHF   | 1.18         | 1.02     | 1.32
 ```
 
-The transformation is performed using:
+The transformation uses PySpark aggregations:
 
 ```python
 gold_df = silver_df.groupBy(
     "quote"
 ).agg(
     avg("rate").alias("average_rate"),
-    spark_min("rate").alias("min_rate"),
-    spark_max("rate").alias("max_rate")
+    min("rate").alias("min_rate"),
+    max("rate").alias("max_rate")
 )
 ```
-
-Gold is then stored as Parquet:
-
-```python
-gold_df.write \
-    .mode("overwrite") \
-    .parquet(GOLD_PATH)
-```
-
-This dataset is ready for analytical use or further integration with reporting tools.
 
 ---
 
 # 📦 Why Parquet?
 
-The PySpark implementation uses **Apache Parquet** instead of CSV for the Medallion layers.
+The standalone PySpark implementation uses **Apache Parquet** for its Medallion layers.
 
 Parquet provides:
 
@@ -547,8 +583,8 @@ Parquet provides:
 - Compression
 - Data type preservation
 - Efficient analytical reads
-- Good integration with Spark
-- Support for partitioning
+- Strong Spark integration
+- Partitioning support
 
 This makes Parquet well suited for analytical Data Engineering workloads.
 
@@ -556,13 +592,13 @@ This makes Parquet well suited for analytical Data Engineering workloads.
 
 # 📂 Partitioning
 
-Bronze and Silver are partitioned by currency:
+The standalone PySpark Bronze and Silver datasets are partitioned by:
 
-```python
-.partitionBy("quote")
+```text
+quote
 ```
 
-This creates a structure such as:
+Example:
 
 ```text
 currency_rates/
@@ -572,9 +608,9 @@ currency_rates/
 └── quote=CHF/
 ```
 
-When Spark needs only one currency, partition pruning can allow irrelevant partitions to be skipped.
+When Spark filters on a partition column, partition pruning can reduce unnecessary data scanning.
 
-For example:
+Example:
 
 ```python
 df.filter(
@@ -582,15 +618,372 @@ df.filter(
 )
 ```
 
-Spark can focus on the USD partition instead of scanning all currency partitions.
+The Gold currency summary is very small and therefore does not require partitioning.
 
-Gold is not partitioned because the aggregated Gold dataset is very small.
+---
+
+# 🧱 Version 3 — Databricks Lakehouse
+
+The latest version moves the currency pipeline into **Databricks**.
+
+This implementation uses:
+
+- Databricks Notebooks
+- PySpark
+- Delta Lake
+- Delta Tables
+- Medallion Architecture
+- Watermark-based incremental ingestion
+- Data quality validation
+- Databricks Jobs
+- Task dependencies
+- GitHub integration
+
+The architecture is now:
+
+```text
+Frankfurter REST API
+        │
+        ▼
+Databricks
+        │
+        ▼
+PySpark DataFrame
+        │
+        ▼
+Watermark
+        │
+        ▼
+Incremental Filter
+        │
+        ▼
+🥉 Bronze Delta Table
+        │
+        ▼
+Cleaning & Data Quality
+        │
+        ▼
+🥈 Silver Delta Table
+        │
+        ▼
+PySpark Aggregations
+        │
+        ▼
+🥇 Gold Delta Table
+        │
+        ▼
+Analytics
+```
+
+---
+
+# 🥉 Databricks Bronze Layer
+
+The Databricks Bronze notebook is responsible for ingesting currency data from the REST API.
+
+Notebook:
+
+```text
+databricks/bronze/bronze_currency.ipynb
+```
+
+The notebook performs:
+
+```text
+Frankfurter API
+      ↓
+JSON Response
+      ↓
+Spark DataFrame
+      ↓
+Watermark
+      ↓
+Incremental Filter
+      ↓
+Bronze Delta Table
+```
+
+The watermark is retrieved from the existing Bronze table:
+
+```sql
+SELECT MAX(date) AS watermark
+FROM bronze.currency_rates
+```
+
+Only records newer than the watermark continue:
+
+```python
+def filter_new_data(df, watermark):
+    if watermark is None:
+        new_data = df
+    else:
+        new_data = df.filter(
+            col("date") > watermark
+        )
+
+    return new_data
+```
+
+The new records are written to:
+
+```text
+bronze.currency_rates
+```
+
+using Delta format:
+
+```python
+new_data.write \
+    .format("delta") \
+    .mode("append") \
+    .saveAsTable("bronze.currency_rates")
+```
+
+---
+
+# 🥈 Databricks Silver Layer
+
+Notebook:
+
+```text
+databricks/silver/silver_currency.ipynb
+```
+
+Silver reads the Bronze Delta Table:
+
+```python
+df = spark.table("bronze.currency_rates")
+```
+
+The data is then cleaned and standardized.
+
+Transformations include:
+
+- Convert `date` to a date type
+- Convert `rate` to double
+- Trim currency values
+- Standardize currency codes to uppercase
+- Remove duplicate records
+- Validate NULL values
+- Validate exchange rates
+
+The data quality check verifies that:
+
+```text
+date  != NULL
+base  != NULL
+quote != NULL
+rate  != NULL
+rate  > 0
+```
+
+Valid data is written to:
+
+```text
+silver.currency_rates
+```
+
+as a Delta Table.
+
+---
+
+# 🥇 Databricks Gold Layer
+
+Notebook:
+
+```text
+databricks/gold/gold_currency.ipynb
+```
+
+Gold reads:
+
+```text
+silver.currency_rates
+```
+
+and creates an analytics-ready currency summary.
+
+The data is grouped by currency and calculates:
+
+```text
+AVG(rate)
+MIN(rate)
+MAX(rate)
+```
+
+The final Delta Table is:
+
+```text
+gold.currency_summary
+```
+
+Example structure:
+
+```text
+quote | average_rate | min_rate | max_rate
+------------------------------------------------
+USD   | ...          | ...      | ...
+GBP   | ...          | ...      | ...
+CHF   | ...          | ...      | ...
+```
+
+---
+
+# 🔺 Why Delta Lake?
+
+The Databricks implementation uses **Delta Tables** instead of plain Parquet datasets.
+
+Conceptually:
+
+```text
+Delta Table
+     =
+Parquet Data
+     +
+Transaction Log
+```
+
+Delta Lake adds functionality such as:
+
+- ACID transactions
+- Reliable writes
+- UPDATE
+- DELETE
+- MERGE
+- Table versioning
+- Schema management
+- Transaction history
+
+This makes Delta Tables better suited for managed Lakehouse pipelines than plain Parquet files alone.
+
+---
+
+# 🔄 Databricks Job Orchestration
+
+The three Databricks notebooks are orchestrated using a **Databricks Job**.
+
+Job:
+
+```text
+Currency Lakehouse Pipeline
+```
+
+Task dependency flow:
+
+```text
+bronze_currency
+       │
+       ▼
+silver_currency
+       │
+       ▼
+gold_currency
+```
+
+The dependencies ensure that:
+
+```text
+Bronze succeeds
+      ↓
+Silver starts
+
+Silver succeeds
+      ↓
+Gold starts
+```
+
+If an upstream task fails, downstream processing does not continue.
+
+The complete Job successfully executes the currency pipeline from API ingestion to the Gold analytics table.
+
+---
+
+# ⚙️ Automated Pipeline Flow
+
+The Databricks implementation combines ingestion, transformation and orchestration:
+
+```text
+                 Databricks Job
+                       │
+                       ▼
+               bronze_currency
+                       │
+                       ▼
+             Frankfurter REST API
+                       │
+                       ▼
+                Watermark Check
+                       │
+                       ▼
+               Incremental Data
+                       │
+                       ▼
+            bronze.currency_rates
+                       │
+                       ▼
+               silver_currency
+                       │
+                       ▼
+             Cleaning + Validation
+                       │
+                       ▼
+            silver.currency_rates
+                       │
+                       ▼
+                gold_currency
+                       │
+                       ▼
+                 Aggregation
+                       │
+                       ▼
+            gold.currency_summary
+```
+
+This removes the need to manually execute each notebook separately.
+
+---
+
+# 🏠 Data Warehouse vs Lakehouse
+
+This repository demonstrates two architectural approaches.
+
+## Traditional Data Warehouse
+
+The original implementation uses:
+
+```text
+Python
+  ↓
+Pandas
+  ↓
+SQL Server
+  ↓
+Bronze / Silver / Gold
+```
+
+## Data Lakehouse
+
+The latest implementation uses:
+
+```text
+Databricks
+  ↓
+PySpark
+  ↓
+Delta Lake
+  ↓
+Bronze / Silver / Gold
+  ↓
+Databricks Jobs
+```
+
+The Lakehouse implementation combines scalable file-based data processing with managed tables and Data Warehouse-style capabilities.
 
 ---
 
 # 🧠 Pipeline Evolution
 
-One of the main goals of this repository is to show how the project evolved while learning new Data Engineering concepts.
+One of the main goals of this repository is to show how the project evolved while learning Data Engineering.
 
 ## Version 1
 
@@ -628,9 +1021,29 @@ Silver Parquet
 Gold Parquet
 ```
 
-The first implementation is intentionally kept in the repository.
+## Version 3
 
-The goal is not to show that one tool is always better than another, but to demonstrate how the same Data Engineering problem can be approached with different technologies as data-processing requirements evolve.
+```text
+REST API
+   ↓
+Databricks
+   ↓
+PySpark
+   ↓
+Watermark
+   ↓
+Bronze Delta
+   ↓
+Silver Delta
+   ↓
+Gold Delta
+   ↓
+Databricks Job
+```
+
+The earlier implementations are intentionally preserved.
+
+The objective is not to show that one technology is always better than another. Instead, the repository demonstrates how the same Data Engineering problem can evolve as new technologies and architectural concepts are introduced.
 
 ---
 
@@ -685,8 +1098,8 @@ The original SQL Server implementation also contains a Star Schema.
 
 ```text
              dim_customers
-                  │
-                  ▼
+                   │
+                   ▼
 dim_products ──► fact_sales
 ```
 
@@ -724,7 +1137,7 @@ This assumption allows the project to demonstrate API ingestion, historical curr
 
 # 🧩 Modular Pipeline Design
 
-The PySpark pipeline is divided into reusable functions.
+The standalone PySpark pipeline is divided into reusable functions.
 
 ```text
 create_spark_session()
@@ -759,7 +1172,7 @@ load_gold()
 main()
 ```
 
-The `main()` function coordinates the complete pipeline.
+The `main()` function coordinates the complete standalone PySpark pipeline.
 
 ```text
 Extract
@@ -779,13 +1192,13 @@ Silver
 Gold
 ```
 
-This separation makes the pipeline easier to understand, maintain, test, and extend.
+In Databricks, these responsibilities are separated into Bronze, Silver and Gold notebooks and orchestrated through a Databricks Job.
 
 ---
 
 # 📝 Logging & Error Handling
 
-The pipeline logs important execution events.
+The standalone Python/PySpark pipeline logs important execution events.
 
 Examples include:
 
@@ -801,13 +1214,13 @@ Examples include:
 - Pipeline completed
 - Pipeline failed
 
-The pipeline also handles API errors:
+The pipeline handles API-specific exceptions:
 
 ```python
 except requests.RequestException as error:
 ```
 
-and unexpected pipeline errors:
+and unexpected errors:
 
 ```python
 except Exception as error:
@@ -821,6 +1234,17 @@ This prevents failures from happening silently and makes troubleshooting easier.
 
 ```text
 sql-data-warehouse-project/
+│
+├── databricks/
+│   │
+│   ├── bronze/
+│   │   └── bronze_currency.ipynb
+│   │
+│   ├── silver/
+│   │   └── silver_currency.ipynb
+│   │
+│   └── gold/
+│       └── gold_currency.ipynb
 │
 ├── datasets/
 │   ├── source_crm/
@@ -849,9 +1273,65 @@ sql-data-warehouse-project/
 └── README.md
 ```
 
-## Python Pipelines
+---
 
-### `load_data.py`
+# 📓 Databricks Notebooks
+
+## `bronze_currency.ipynb`
+
+Responsible for:
+
+- REST API extraction
+- Spark DataFrame creation
+- Watermark retrieval
+- Incremental filtering
+- Bronze Delta ingestion
+
+Output:
+
+```text
+bronze.currency_rates
+```
+
+## `silver_currency.ipynb`
+
+Responsible for:
+
+- Reading Bronze
+- Data type conversion
+- Standardization
+- Duplicate removal
+- Data quality validation
+- Silver Delta loading
+
+Output:
+
+```text
+silver.currency_rates
+```
+
+## `gold_currency.ipynb`
+
+Responsible for:
+
+- Reading Silver
+- Grouping by currency
+- Average-rate calculation
+- Minimum-rate calculation
+- Maximum-rate calculation
+- Gold Delta loading
+
+Output:
+
+```text
+gold.currency_summary
+```
+
+---
+
+# 🐍 Python Pipelines
+
+## `load_data.py`
 
 Original implementation using:
 
@@ -872,9 +1352,9 @@ It demonstrates:
 - Incremental loading
 - Stored procedure execution
 
-### `currency_pipeline_pyspark.py`
+## `currency_pipeline_pyspark.py`
 
-New implementation using:
+Standalone Spark implementation using:
 
 ```text
 Python
@@ -981,19 +1461,36 @@ The project supports analysis such as:
 - Partitioning
 - Partition pruning concepts
 
+## Databricks
+
+- Databricks Notebooks
+- Serverless Compute
+- Delta Tables
+- Bronze / Silver / Gold
+- Databricks Jobs
+- Task Dependencies
+- Job Runs
+- Pipeline Orchestration
+- GitHub Integration
+- Databricks Git Folders
+
 ## Data Engineering
 
 - ETL / ELT
 - Data Ingestion
+- REST API Ingestion
 - Data Quality
 - Incremental Processing
 - Watermark Logic
 - Medallion Architecture
+- Data Lakehouse
 - Bronze / Silver / Gold
 - Parquet
+- Delta Lake
 - Partitioning
 - Multi-source Data Integration
 - Data Modeling
+- Pipeline Orchestration
 - Logging
 - Error Handling
 - Git
@@ -1027,70 +1524,110 @@ The project demonstrates how to:
 18. Integrate historical currency data with sales data.
 19. Add logging and error handling.
 20. Structure pipelines into reusable functions.
-21. Evolve a Pandas-based pipeline toward PySpark.
+21. Build Delta Tables in Databricks.
+22. Build a Data Lakehouse architecture.
+23. Separate processing into Databricks notebooks.
+24. Configure task dependencies.
+25. Orchestrate Bronze → Silver → Gold using Databricks Jobs.
+26. Connect Databricks with GitHub.
+27. Evolve the same project across multiple Data Engineering technologies.
+
+---
+
+# 🔄 Current Project Status
+
+The project has now progressed through:
+
+```text
+SQL Server
+     │
+     ▼
+Python + Pandas
+     │
+     ▼
+REST API Pipeline
+     │
+     ▼
+Watermark & Incremental Loading
+     │
+     ▼
+PySpark
+     │
+     ▼
+Parquet & Partitioning
+     │
+     ▼
+Bronze / Silver / Gold
+     │
+     ▼
+Databricks
+     │
+     ▼
+Delta Lake
+     │
+     ▼
+Data Lakehouse
+     │
+     ▼
+Databricks Job Orchestration
+```
+
+The currency API pipeline is now implemented as an end-to-end Databricks Lakehouse pipeline.
 
 ---
 
 # 🔜 Next Steps
 
-The project has progressed through:
+The next phase of the project will expand the Databricks implementation beyond the currency API.
+
+The existing CRM and ERP CSV datasets will also be migrated into the Databricks Lakehouse.
+
+Planned architecture:
 
 ```text
-SQL
- │
- ▼
-Python + Pandas
- │
- ▼
-REST API Pipeline
- │
- ▼
-Watermark & Incremental Loading
- │
- ▼
-PySpark
- │
- ▼
-Parquet & Partitioning
- │
- ▼
-Bronze / Silver / Gold with Spark
+                 Source Systems
+                       │
+          ┌────────────┼────────────┐
+          │            │            │
+          ▼            ▼            ▼
+       CRM CSV      ERP CSV      REST API
+          │            │            │
+          └────────────┼────────────┘
+                       │
+                       ▼
+                 Databricks
+                       │
+                       ▼
+                  🥉 Bronze
+                       │
+                       ▼
+                  🥈 Silver
+                       │
+                       ▼
+                   🥇 Gold
+                       │
+                       ▼
+                Star Schema
+                       │
+                       ▼
+              Analytics / Reporting
 ```
 
-The next phase will focus on running these concepts in a modern Data Engineering platform.
+Future improvements include:
 
-```text
-Current Project
-      │
-      ▼
-Databricks
-      │
-      ▼
-Delta Lake
-      │
-      ▼
-Cloud Storage
-      │
-      ▼
-Orchestration
-      │
-      ▼
-Production-style Data Pipeline
-```
+- Ingest CRM CSV files into Databricks
+- Ingest ERP CSV files into Databricks
+- Build Bronze Delta Tables for all source systems
+- Build Silver transformations for CRM and ERP
+- Integrate API, CRM and ERP data
+- Build Gold fact and dimension tables
+- Build a Databricks Star Schema
+- Expand Databricks Job orchestration
+- Add scheduling
+- Add pipeline monitoring
+- Explore cloud storage integration
 
-Future learning goals:
-
-- Databricks
-- Spark notebooks
-- Delta Lake
-- Lakehouse Architecture
-- Cloud storage
-- Pipeline orchestration
-- Scheduled pipelines
-- Monitoring
-- End-to-end cloud Data Engineering
-
-The objective is to continue evolving the same project while preserving earlier implementations to demonstrate the complete learning journey.
+The objective is to continue evolving the same project while preserving earlier implementations to demonstrate the complete Data Engineering learning journey.
 
 ---
 
